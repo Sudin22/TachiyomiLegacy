@@ -1,30 +1,24 @@
-# TachiyomiLegacy
+# Tachiyomi Legacy Bridge (experimental)
 
-A legacy-format extension catalogue intended for testing with original Tachiyomi 0.15.3.
+This repository contains an experimental legacy-format catalogue test for the original Tachiyomi app.
 
-## Repository URL
+## Test repository URL
+
+After GitHub Pages is enabled for this repository, the intended URL is:
+
+`https://sudin22.github.io/TachiyomiLegacy/index.min.json`
+
+Until Pages is enabled and deployed, use the raw file URL:
 
 `https://raw.githubusercontent.com/Sudin22/TachiyomiLegacy/main/index.min.json`
 
-## Catalogue
+## Important compatibility warning
 
-- 1,284 archived extension metadata entries.
-- 413 English entries.
-- Includes **Tachiyomi: Asura Scans** (package `eu.kanade.tachiyomi.extension.en.asurascans`).
-- Asura Scans APK v1.4.58 is mirrored locally at `apk/tachiyomi-en.asurascans-v1.4.58.apk`.
-- Other APK references currently point to the archived source repository; they have not all been mirrored or individually tested.
+This is a metadata-format experiment only. It does not convert, patch, or downgrade APK binaries. A current Keiyoushi extension may require a newer extension library than original Tachiyomi supports. A catalogue entry appearing does not prove that its APK will install, load, or run.
 
-## Compatibility and safety notes
+The sample entry is AHottie, based on metadata visible in Keiyoushi's public catalogue. Test only if you trust the extension publisher and understand that extensions execute code in the app.
 
-The catalogue is converted from an archived 1.4.x-era extension index. This is a compatibility candidate for Tachiyomi 0.15.3, not a guarantee that every APK installs or that every website still works. Websites change, and some archived extensions may be broken or discontinued.
+## Files
 
-Install only extensions from repositories you trust. Extension APKs execute code on your device.
-
-## Test Asura Scans
-
-1. Remove and re-add the repository URL above, or refresh its index.
-2. Find **Tachiyomi: Asura Scans** in Browse → Extensions.
-3. Install it and check whether Android accepts the APK.
-4. Open the installed source and test browsing and opening a chapter.
-
-Report installation errors separately from source/network errors; they indicate different problems.
+- `index.min.json`: one-entry legacy catalogue sample.
+- `convert_keiyoushi.py`: experimental converter for a downloaded Keiyoushi `index.json`.
