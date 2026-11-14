@@ -1,0 +1,46 @@
+name: Mirror legacy extension assets
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/mirror_assets.py"
+      - ".github/workflows/mirror-assets.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: legacy-asset-mirror
+  cancel-in-progress: false
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Mirror APKs and icons
+        run: python scripts/mirror_assets.py
+
+      - name: Commit mirrored assets and corrected legacy index
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.min.json apk icon
+          if git diff --cached --quiet; then
+            echo "No asset changes to commit."
+          else
+            git commit -m "Mirror legacy extension APKs and icons"
+            git push origin HEAD:main
+          fi
